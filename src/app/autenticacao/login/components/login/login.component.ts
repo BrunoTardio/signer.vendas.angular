@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     return;
   }
   const login = this.form.value;
-  alert(JSON.stringify(login));
+  alert('Email: ' + login.email + ', senha: '+ login.senha);
 
  }
 
