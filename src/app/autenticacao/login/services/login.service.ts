@@ -10,7 +10,7 @@ import {Login} from '../';
 
 export class LoginService {
 
-  private readonly PATH: string = 'auth';
+  private readonly PATH: string = '/auth';
 
 
   constructor(private http: HttpClient) { }

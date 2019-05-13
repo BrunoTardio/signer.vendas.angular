@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
 import {Login} from '../../models';
+import {LoginService} from '../../services';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-   // private router:Router
+    private router:Router,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -39,8 +41,21 @@ export class LoginComponent implements OnInit {
     return;
   }
   const login = this.form.value;
-  alert('Email: ' + login.email + ', senha: '+ login.senha);
-
- }
-
+  this.loginService.logar(login)
+  .subscribe(
+    data => {
+      localStorage['token'] = data['data']['token'];
+     
+      // nao precisa pegar o perfil pois serao apenas clientes
+        this.router.navigate(['//produtos']);
+      },
+    err => {
+      let msg: string = "Tente novamente em instantes.";
+      if (err['status'] == 401) {
+        msg = "Email/senha inválido(s)."
+      }
+      this.snackBar.open(msg, "Erro", { duration: 5000 });
+     }
+    );
+  }
 }
