@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material';
 
 import {Login} from '../../models';
 import {LoginService} from '../../services';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -44,10 +45,12 @@ export class LoginComponent implements OnInit {
   this.loginService.logar(login)
   .subscribe(
     data => {
-      localStorage['token'] = data['data']['token'];
+      console.log(JSON.stringify(data));
+      localStorage[''] = Token;
+      
      
       // nao precisa pegar o perfil pois serao apenas clientes
-        this.router.navigate(['//produtos']);
+        this.router.navigate(['produtos']);
       },
     err => {
       let msg: string = "Tente novamente em instantes.";
